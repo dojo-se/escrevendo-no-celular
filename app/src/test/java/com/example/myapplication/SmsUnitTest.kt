@@ -31,4 +31,10 @@ class SmsUnitTest {
     fun `should translate letter D into 3`() {
         assertEquals(3, Translator.translate("D"))
     }
+
+    @Test
+    fun `should translate letter B into 22`() {
+        assertEquals(22, Translator.translate("B"))
+
+    }
 }

@@ -1,5 +1,7 @@
 package com.example.myapplication.io
 
+import kotlin.time.seconds
+
 object Translator {
     fun translate(string: String): Int {
         val list = listOf(
@@ -13,9 +15,17 @@ object Translator {
             Pair("WXYZ", 9)
         )
 
-        val find = list.first {
+        val pair = list.first {
             it.first.contains(string)
         }
-        return find.second
+
+        val index = pair.first.indexOf(string)
+
+        var final = ""
+        repeat(index + 1) {
+            final+=(pair.second)
+        }
+
+        return final.toInt()
     }
 }
