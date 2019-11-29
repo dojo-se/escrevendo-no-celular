@@ -35,7 +35,11 @@ object Translator {
 
         var final = ""
         repeat(translated.size) {
-            final+=(translated[it])}
+            final += if(final.isNotEmpty() && translated[it].contains(final.last())) {
+                ('_' +translated[it])
+            } else
+                (translated[it])
+        }
         return final
     }
 }
