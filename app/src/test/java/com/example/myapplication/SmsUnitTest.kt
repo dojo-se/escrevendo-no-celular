@@ -75,7 +75,7 @@ class SmsUnitTest {
     @Test
     fun `should throw IllegalStateException when phrase contains invalid characters`() {
         thrown.expect(IllegalStateException::class.java)
-        thrown.expectMessage("Invalid letter to translate")
+        thrown.expectMessage("Invalid character to translate. It should be letter or whitespace")
 
         assertEquals(
             "77773367_7773302_222337777_777766606660366656667889999_9999555337777",
