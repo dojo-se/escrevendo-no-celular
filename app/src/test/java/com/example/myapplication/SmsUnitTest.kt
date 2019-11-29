@@ -43,4 +43,9 @@ class SmsUnitTest {
         assertEquals("226665552", Translator.translateWord("BOLA"))
 
     }
+    @Test
+    fun `should translate one sentence properly`() {
+        assertEquals("22666555202", Translator.translateWord("BOLA A"))
+
+    }
 }

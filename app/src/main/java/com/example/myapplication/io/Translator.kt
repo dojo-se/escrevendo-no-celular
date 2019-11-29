@@ -12,7 +12,8 @@ object Translator {
             Pair("MNO", 6),
             Pair("PQRS", 7),
             Pair("TUV", 8),
-            Pair("WXYZ", 9)
+            Pair("WXYZ", 9),
+            Pair(" ", 0)
         )
 
         val pair = list.first {
