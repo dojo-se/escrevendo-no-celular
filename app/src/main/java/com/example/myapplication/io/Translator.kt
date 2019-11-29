@@ -3,7 +3,7 @@ package com.example.myapplication.io
 import kotlin.time.seconds
 
 object Translator {
-    fun translate(string: String): Int {
+    fun translateLetter(string: Char): String {
         val list = listOf(
             Pair("ABC", 2),
             Pair("DEF", 3),
@@ -26,6 +26,15 @@ object Translator {
             final+=(pair.second)
         }
 
-        return final.toInt()
+        return final
+    }
+
+    fun translateWord(string: String): String {
+        val translated = string.map { translateLetter(it) }
+
+        var final = ""
+        repeat(translated.size) {
+            final+=(translated[it])}
+        return final
     }
 }

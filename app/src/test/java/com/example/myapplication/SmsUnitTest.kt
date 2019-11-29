@@ -24,17 +24,23 @@ Por exemplo, para digitar "SEMPRE ACESSO O DOJOPUZZLES", você precisa digitar:
 class SmsUnitTest {
     @Test
     fun `should translate properly`() {
-        assertEquals(2, Translator.translate("A"))
+        assertEquals("2", Translator.translateLetter('A'))
     }
 
     @Test
     fun `should translate letter D into 3`() {
-        assertEquals(3, Translator.translate("D"))
+        assertEquals("3", Translator.translateLetter('D'))
     }
 
     @Test
     fun `should translate letter B into 22`() {
-        assertEquals(22, Translator.translate("B"))
+        assertEquals("22", Translator.translateLetter('B'))
+
+    }
+
+    @Test
+    fun `should translate BOLA into 226665552`() {
+        assertEquals("226665552", Translator.translateWord("BOLA"))
 
     }
 }
