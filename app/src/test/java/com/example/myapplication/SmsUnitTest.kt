@@ -2,7 +2,10 @@ package com.example.myapplication
 
 import com.example.myapplication.io.Translator
 import org.junit.Assert.assertEquals
+import org.junit.Rule
 import org.junit.Test
+import org.junit.rules.ExpectedException
+
 
 /**
 Letras ->
@@ -22,6 +25,10 @@ Por exemplo, para digitar "SEMPRE ACESSO O DOJOPUZZLES", você precisa digitar:
 
 77773367_7773302_222337777_777766606660366656667889999_9999555337777*/
 class SmsUnitTest {
+
+    @get:Rule
+    val thrown: ExpectedException = ExpectedException.none()
+
     @Test
     fun `should translate properly`() {
         assertEquals("2", Translator.translateLetter('A'))
@@ -61,6 +68,18 @@ class SmsUnitTest {
         assertEquals(
             "77773367_7773302_222337777_777766606660366656667889999_9999555337777",
             Translator.translateWord("SEMPRE ACESSO O DOJOPUZZLES")
+        )
+
+    }
+
+    @Test
+    fun `should throw IllegalStateException when phrase contains invalid characters`() {
+        thrown.expect(IllegalStateException::class.java)
+        thrown.expectMessage("Invalid letter to translate")
+
+        assertEquals(
+            "77773367_7773302_222337777_777766606660366656667889999_9999555337777",
+            Translator.translateWord("S3mPRE AC3SSO 0 D0J0PUZZLES")
         )
 
     }

@@ -1,45 +1,42 @@
 package com.example.myapplication.io
 
-import kotlin.time.seconds
-
 object Translator {
-    fun translateLetter(string: Char): String {
-        val list = listOf(
-            Pair("ABC", 2),
-            Pair("DEF", 3),
-            Pair("GHI", 4),
-            Pair("JKL", 5),
-            Pair("MNO", 6),
-            Pair("PQRS", 7),
-            Pair("TUV", 8),
-            Pair("WXYZ", 9),
-            Pair(" ", 0)
-        )
+    private const val UNDERSCORE = "_"
 
-        val pair = list.first {
-            it.first.contains(string)
+    private val KEYBOARD = listOf(
+        NoQwerty(group = "ABC", key = "2"),
+        NoQwerty(group = "DEF", key = "3"),
+        NoQwerty(group = "GHI", key = "4"),
+        NoQwerty(group = "JKL", key = "5"),
+        NoQwerty(group = "MNO", key = "6"),
+        NoQwerty(group = "PQRS", key = "7"),
+        NoQwerty(group = "TUV", key = "8"),
+        NoQwerty(group = "WXYZ", key = "9"),
+        NoQwerty(group = " ", key = "0")
+    )
+
+    fun translateLetter(letter: Char): String {
+        check(letter.isWhitespace() || letter.isLetter()) {
+            "Invalid letter to translate"
         }
 
-        val index = pair.first.indexOf(string)
+        val letterUpper = letter.toUpperCase()
 
-        var final = ""
-        repeat(index + 1) {
-            final+=(pair.second)
+        val noQwerty = KEYBOARD.first {
+            val firstLetter = it.group.first()
+            val lastLetter = it.group.last()
+            return@first letterUpper in firstLetter..lastLetter
         }
 
-        return final
+        val letterIndex = noQwerty.group.indexOf(letterUpper)
+
+        return noQwerty.key.repeat(letterIndex + 1)
     }
 
-    fun translateWord(string: String): String {
-        val translated = string.map { translateLetter(it) }
-
-        var final = ""
-        repeat(translated.size) {
-            final += if(final.isNotEmpty() && translated[it].contains(final.last())) {
-                ('_' +translated[it])
-            } else
-                (translated[it])
+    fun translateWord(phrase: String): String = phrase
+        .map { translateLetter(it) }
+        .reduce { previous, next ->
+            val separator = if (previous.last() == next.first()) UNDERSCORE else ""
+            return@reduce previous + separator + next
         }
-        return final
-    }
 }
