@@ -27,11 +27,22 @@ object Translator {
 
         val letterUpper = character.toUpperCase()
 
-        // Search optimized using ASCII table values
-        val noQwerty = KEYBOARD.first {
+        // Search optimized with binarySearch and ASCII table
+        val noQwertyWithLetterIndex = KEYBOARD.binarySearch {
+            val firstGroupLetter = it.group.first()
+            // Should I search on the left side?
+            if (firstGroupLetter > letterUpper) {
+                return@binarySearch 1
+            }
             val lastGroupLetter = it.group.last()
-            return@first letterUpper <= lastGroupLetter
+            // Should I search on the right side?
+            if (lastGroupLetter < letterUpper) {
+                return@binarySearch -1
+            }
+            return@binarySearch 0 // You found me :D
         }
+
+        val noQwerty = KEYBOARD[noQwertyWithLetterIndex]
 
         val letterIndex = noQwerty.group.indexOf(letterUpper)
 
